@@ -24,6 +24,13 @@ const routes: Routes = [
       import('./lesson-select/lesson-select.module').then(
         (m) => m.LessonSelectPageModule
       )
+  },
+  {
+    path: 'module/:module-id/lesson/:lesson-id',
+    loadChildren: () =>
+      import('./lesson/lesson.module').then(
+        (m) => m.LessonPageModule
+      )
   }
 ];
 

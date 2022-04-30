@@ -41,6 +41,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import {
+  getModuleListItems,
+  getLessonListItems
+} from '../support/utils';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -48,6 +52,7 @@ declare global {
     interface Chainable<Subject> {
       navigateToHomePage(): typeof navigateToHomePage;
       navigateToLessonSelectPage(): typeof navigateToLessonSelectPage;
+      navigateToLessonPage(): typeof navigateToLessonPage;
     }
   }
 }
@@ -56,7 +61,12 @@ const navigateToHomePage = () => {
   cy.visit('/');
 };
 const navigateToLessonSelectPage = () => {
-  cy.visit('/');
+  navigateToHomePage();
+  getModuleListItems().first().click();
+};
+const navigateToLessonPage = () => {
+  navigateToLessonSelectPage();
+  getLessonListItems().first().click();
 };
 
 Cypress.Commands.add(
@@ -66,6 +76,10 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   'navigateToLessonSelectPage',
   navigateToLessonSelectPage
+);
+Cypress.Commands.add(
+  'navigateToLessonPage',
+  navigateToLessonPage
 );
 
 export {};
