@@ -47,6 +47,7 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject> {
       navigateToHomePage(): typeof navigateToHomePage;
+      navigateToLessonSelectPage(): typeof navigateToLessonSelectPage;
     }
   }
 }
@@ -54,10 +55,17 @@ declare global {
 const navigateToHomePage = () => {
   cy.visit('/');
 };
+const navigateToLessonSelectPage = () => {
+  cy.visit('/');
+};
 
 Cypress.Commands.add(
   'navigateToHomePage',
   navigateToHomePage
+);
+Cypress.Commands.add(
+  'navigateToLessonSelectPage',
+  navigateToLessonSelectPage
 );
 
 export {};

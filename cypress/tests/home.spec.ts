@@ -1,4 +1,7 @@
-import { getModuleListItems } from '../support/utils';
+import {
+  getModuleListItems,
+  getLessonListItems
+} from '../support/utils';
 
 describe('Home', () => {
   beforeEach(() => {
@@ -13,5 +16,13 @@ describe('Home', () => {
     getModuleListItems()
       .first()
       .should('contain.text', 'Module One');
+  });
+
+  it('after selecting a specific module, the user should be able to see a list of available lessons', () => {
+    getModuleListItems().first().click();
+    getLessonListItems().should(
+      'have.length.greaterThan',
+      0
+    );
   });
 });

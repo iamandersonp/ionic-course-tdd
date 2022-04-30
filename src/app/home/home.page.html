@@ -9,6 +9,7 @@
     <ion-item
       *ngFor="let module of modules"
       data-test="module-list-item"
+      (click)="openModule(module.id)"
       >{{ module.title }}
     </ion-item>
   </ion-list>
