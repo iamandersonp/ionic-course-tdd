@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -30,6 +30,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./lesson/lesson.module').then(
         (m) => m.LessonPageModule
+      )
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then(
+        (m) => m.LoginPageModule
       )
   }
 ];

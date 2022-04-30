@@ -43,9 +43,10 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import {
   getModuleListItems,
-  getLessonListItems
+  getLessonListItems,
+  getKeyInput,
+  getLoginButton
 } from '../support/utils';
-
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
@@ -53,12 +54,15 @@ declare global {
       navigateToHomePage(): typeof navigateToHomePage;
       navigateToLessonSelectPage(): typeof navigateToLessonSelectPage;
       navigateToLessonPage(): typeof navigateToLessonPage;
+      navigateToLoginPage(): typeof navigateToLoginPage;
     }
   }
 }
 
 const navigateToHomePage = () => {
-  cy.visit('/');
+  navigateToLoginPage();
+  getKeyInput().type('abcd-efgh-ijkl-mnop');
+  getLoginButton().click();
 };
 const navigateToLessonSelectPage = () => {
   navigateToHomePage();
@@ -67,6 +71,9 @@ const navigateToLessonSelectPage = () => {
 const navigateToLessonPage = () => {
   navigateToLessonSelectPage();
   getLessonListItems().first().click();
+};
+const navigateToLoginPage = () => {
+  cy.visit('/');
 };
 
 Cypress.Commands.add(
@@ -80,6 +87,10 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   'navigateToLessonPage',
   navigateToLessonPage
+);
+Cypress.Commands.add(
+  'navigateToLoginPage',
+  navigateToLoginPage
 );
 
 export {};
