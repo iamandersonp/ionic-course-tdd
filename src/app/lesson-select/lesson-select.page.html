@@ -9,8 +9,10 @@
     <ion-item
       data-test="lesson-list-item"
       button
+      (click)="openLesson(lesson)"
       *ngFor="let lesson of module.lessons"
     >
+      {{ lesson.title }}
     </ion-item>
   </ion-list>
 </ion-content>

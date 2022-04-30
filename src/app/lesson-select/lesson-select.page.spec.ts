@@ -52,7 +52,10 @@ describe('LessonSelectPage', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of(convertToParamMap({ id: '1' }))
+            paramMap: of(convertToParamMap({ id: '1' })),
+            snapshot: {
+              paramMap: convertToParamMap({ id: '1' })
+            }
           }
         }
       ],
@@ -78,5 +81,21 @@ describe('LessonSelectPage', () => {
       modulesService.getModuleById
     ).toHaveBeenCalledWith(1);
     expect(observerSpy.getLastValue()).toEqual(testModule);
+  });
+
+  it('openLesson() should navigate to the and pass in lesson id', () => {
+    const navCtrl =
+      fixture.debugElement.injector.get(NavController);
+
+    const testLesson = {
+      id: 1,
+      title: 'lesson1',
+      content: 'hello'
+    };
+    component.openLesson(testLesson);
+
+    expect(navCtrl.navigateForward).toHaveBeenCalledWith(
+      `/module/1/lesson/${testLesson.id}`
+    );
   });
 });

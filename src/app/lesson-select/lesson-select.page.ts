@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { switchMap } from 'rxjs/operators';
+import { Lesson } from '../core/interfaces/lesson';
 
 import { ModulesService } from '../core/services/modules.service';
 
@@ -11,7 +12,6 @@ import { ModulesService } from '../core/services/modules.service';
   styleUrls: ['./lesson-select.page.scss']
 })
 export class LessonSelectPage implements OnInit {
-  params: Params;
   module$ = this.route.paramMap.pipe(
     switchMap((params) =>
       this.modulesService.getModuleById(
@@ -27,4 +27,14 @@ export class LessonSelectPage implements OnInit {
   ) {}
 
   ngOnInit() {}
+
+  openLesson(lesson: Lesson) {
+    const id = parseInt(
+      this.route.snapshot.paramMap.get('id'),
+      10
+    );
+    this.navCtrl.navigateForward(
+      '/module/' + id + '/lesson/' + lesson.id
+    );
+  }
 }
