@@ -10,6 +10,7 @@ import {
   LoadingController,
   NavController
 } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
 
@@ -47,7 +48,7 @@ describe('LoginPage', () => {
           }
         }
       ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), FormsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginPage);
@@ -150,6 +151,27 @@ describe('LoginPage', () => {
     component.licenseKey = 'abcde-fghi';
 
     component.login();
+
+    tick();
+
+    expect(navCtrl.navigateRoot).toHaveBeenCalledWith(
+      '/home'
+    );
+  }));
+
+  it('if the user has a valid license key in storage then they should be taken straight to the home page', fakeAsync(() => {
+    const authProvider =
+      fixture.debugElement.injector.get(AuthService);
+    const navCtrl =
+      fixture.debugElement.injector.get(NavController);
+
+    jest
+      .spyOn(authProvider, 'reauthenticate')
+      .mockReturnValue(
+        new Promise((resolve) => setTimeout(resolve, 0))
+      );
+
+    component.ngOnInit();
 
     tick();
 

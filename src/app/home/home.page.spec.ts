@@ -4,8 +4,11 @@ import {
   waitForAsync
 } from '@angular/core/testing';
 import { IonicModule, NavController } from '@ionic/angular';
+import { AuthService } from '../core/services/auth.service';
 
 import { HomePage } from './home.page';
+
+jest.mock('../core/services/auth.service');
 
 describe('HomePage', () => {
   let component: HomePage;
@@ -15,6 +18,7 @@ describe('HomePage', () => {
     TestBed.configureTestingModule({
       declarations: [HomePage],
       providers: [
+        AuthService,
         {
           provide: NavController,
           useValue: {
@@ -48,5 +52,14 @@ describe('HomePage', () => {
     expect(navCtrl.navigateForward).toHaveBeenCalledWith(
       '/module/' + testModule.id
     );
+  });
+
+  it('the logout function should call the logout method of the auth provider', () => {
+    const authService =
+      fixture.debugElement.injector.get(AuthService);
+
+    component.logout();
+
+    expect(authService.logout).toHaveBeenCalled();
   });
 });

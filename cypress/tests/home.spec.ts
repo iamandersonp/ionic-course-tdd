@@ -1,6 +1,8 @@
 import {
   getModuleListItems,
-  getLessonListItems
+  getLessonListItems,
+  getKeyInput,
+  getLogoutButton
 } from '../support/utils';
 
 describe('Home', () => {
@@ -24,5 +26,10 @@ describe('Home', () => {
       'have.length.greaterThan',
       0
     );
+  });
+
+  it('should be able to log out', () => {
+    getLogoutButton().click();
+    getKeyInput().should('exist');
   });
 });
