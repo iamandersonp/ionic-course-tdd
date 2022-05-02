@@ -17,4 +17,15 @@ describe('Login', () => {
       .first()
       .should('contain.text', 'Module One');
   });
+
+  it('should take the user directly to the home page if they have logged in previously', () => {
+    getKeyInput().type('abcd-egfh-ijkl-mnop');
+    getLoginButton().click();
+
+    cy.visit('/');
+
+    getModuleListItems()
+      .first()
+      .should('contain.text', 'Module One');
+  });
 });

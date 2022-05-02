@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Module } from '../core/interfaces/module';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -41,9 +42,16 @@ export class HomePage {
     }
   ];
 
-  constructor(private navCtrl: NavController) {}
+  constructor(
+    private navCtrl: NavController,
+    private authService: AuthService
+  ) {}
 
   openModule(id: number) {
     this.navCtrl.navigateForward('/module/' + id);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

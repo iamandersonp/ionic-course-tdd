@@ -8,3 +8,5 @@ export const getKeyInput = () =>
   cy.get('[data-test="key-input"] input');
 export const getLoginButton = () =>
   cy.get('[data-test="login-button"]');
+export const getLogoutButton = () =>
+  cy.get('[data-test="logout-button"]');

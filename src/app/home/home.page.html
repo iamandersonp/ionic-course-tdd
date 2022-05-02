@@ -1,6 +1,17 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title> Blank </ion-title>
+    <ion-title> Home </ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="logout()"
+        data-test="logout-button"
+      >
+        <ion-icon
+          slot="icon-only"
+          name="log-out"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

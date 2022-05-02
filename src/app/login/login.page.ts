@@ -20,7 +20,15 @@ export class LoginPage implements OnInit {
     private loadingCtrl: LoadingController
   ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    try {
+      const result =
+        await this.authProvider.reauthenticate();
+      this.navCtrl.navigateRoot('/home');
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   async login() {
     const overlay = await this.loadingCtrl.create({
