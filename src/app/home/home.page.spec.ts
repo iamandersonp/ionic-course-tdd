@@ -5,10 +5,12 @@ import {
 } from '@angular/core/testing';
 import { IonicModule, NavController } from '@ionic/angular';
 import { AuthService } from '../core/services/auth.service';
+import { ModulesService } from '../core/services/modules.service';
 
 import { HomePage } from './home.page';
 
 jest.mock('../core/services/auth.service');
+jest.mock('../core/services/modules.service');
 
 describe('HomePage', () => {
   let component: HomePage;
@@ -19,6 +21,7 @@ describe('HomePage', () => {
       declarations: [HomePage],
       providers: [
         AuthService,
+        ModulesService,
         {
           provide: NavController,
           useValue: {
@@ -38,7 +41,23 @@ describe('HomePage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have a modules class member that contains 5 items', () => {
+  it('should assign result of getModules to modules class member', () => {
+    const moduleService =
+      fixture.debugElement.injector.get(ModulesService);
+
+    const dummyModule = {
+      id: 0,
+      title: '',
+      description: '',
+      lessons: []
+    };
+
+    jest
+      .spyOn(moduleService, 'getModules')
+      .mockReturnValue(new Array(5).fill(dummyModule));
+
+    component.ngOnInit();
+
     expect(component.modules.length).toBe(5);
   });
 
